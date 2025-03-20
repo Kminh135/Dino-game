@@ -1,5 +1,7 @@
 #include "object.h"
 #include "game.h"
+#include "graphic.h"
+#include <cstdlib>
 
 using namespace std;
 
@@ -21,10 +23,18 @@ void updateDino(Dino& dino)
 
 void updateCactus(Cactus& cactus)
 {
-    cactus.x -= 5;
+    cactus.x -= gameSpeed;
     if(cactus.x < -cactus.w){
-        cactus.x = 800;
+        cactus.x = SCREEN_WIDTH;
         score++;
+
+        int index = rand() % cactusVariants.size();
+        cactus.texture = cactusVariants[index].texture;
+        cactus.y = cactusVariants[index].y;
+        cactus.w = cactusVariants[index].w;
+        cactus.h = cactusVariants[index].h;
+//        int groundY = 270;
+//        cactus.y = groundY - cactus.h;
     }
 }
 

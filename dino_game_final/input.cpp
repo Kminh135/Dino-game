@@ -22,7 +22,7 @@ void handleInput()
                 gameStarted = false;
                 score = 0;
                 cactus.x = SCREEN_WIDTH;
-                dino.y = 300;
+                dino.y = 270;
             }
         }
     }

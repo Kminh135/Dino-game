@@ -43,7 +43,7 @@
 	"object.h"
 	<iostream>
 
-1742394898 source:d:\code\c++cb\dino_game_final\game.cpp
+1742437735 source:d:\code\c++cb\dino_game_final\game.cpp
 	"game.h"
 	"graphic.h"
 	"input.h"
@@ -52,30 +52,36 @@
 	<cstdlib>
 	<ctime>
 
-1742393886 d:\code\c++cb\dino_game_final\game.h
+1742398334 d:\code\c++cb\dino_game_final\game.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
 	"object.h"
 	<string>
 
-1742386773 d:\code\c++cb\dino_game_final\object.h
+1742399372 d:\code\c++cb\dino_game_final\object.h
+	<SDL.h>
 
-1742301734 d:\code\c++cb\dino_game_final\graphic.h
+1742437276 d:\code\c++cb\dino_game_final\graphic.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
 	<string>
 	"object.h"
+	<vector>
 
 1742286070 d:\code\c++cb\dino_game_final\input.h
 
-1742386934 source:d:\code\c++cb\dino_game_final\graphic.cpp
+1742437276 source:d:\code\c++cb\dino_game_final\graphic.cpp
 	"graphic.h"
 	"game.h"
+	"object.h"
 	<iostream>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<vector>
 
-1742386773 source:d:\code\c++cb\dino_game_final\input.cpp
+1742398334 source:d:\code\c++cb\dino_game_final\input.cpp
 	"input.h"
 	"game.h"
 	"object.h"
@@ -85,7 +91,9 @@
 	"game.h"
 	"input.h"
 
-1742393929 source:d:\code\c++cb\dino_game_final\object.cpp
+1742437870 source:d:\code\c++cb\dino_game_final\object.cpp
 	"object.h"
 	"game.h"
+	"graphic.h"
+	<cstdlib>
 

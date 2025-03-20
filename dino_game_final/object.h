@@ -1,17 +1,22 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-struct Cactus
-{
-    int x,y,w,h;
-};
+#include <SDL.h>
 
 struct Dino
 {
     int x,y,w,h;
     int velocityY;
-    bool isJumping = false;
+    bool isJumping;
 };
+
+struct Cactus
+{
+    int x,y,w,h;
+    SDL_Texture* texture;
+};
+
+
 
 void updateDino(Dino& dino);
 void updateCactus(Cactus& cactus);

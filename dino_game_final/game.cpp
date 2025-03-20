@@ -14,13 +14,15 @@ bool running = true;
 bool gameStarted = false;
 bool gameOver = false;
 int score = 0;
+float gameSpeed = 0.5f;
 
 
 Dino dino = {100, 270, 50, 50, 0, false};
-Cactus cactus = {SCREEN_WIDTH, 270, 50, 50};
+Cactus cactus = {SCREEN_WIDTH, 270, 50, 50, nullptr};
 
 bool initGame()
 {
+    if(SDL_Init(SDL_INIT_VIDEO) < 0) return false;
     if(IMG_Init(IMG_INIT_PNG) < 0) return false;
     if(TTF_Init() == -1) return false;
 
@@ -30,18 +32,26 @@ bool initGame()
     if( !window || !renderer) return false;
 
     if(!loadAssets()) return false;
+
+    int index = rand() % cactusVariants.size();
+    cactus.texture = cactusVariants[index].texture;
+    cactus.y = cactusVariants[index].y;
+    cactus.w = cactusVariants[index].w;
+    cactus.h = cactusVariants[index].h;
+    int groundY = 270;
+
     return true;
 }
 
 void updateGame()
 {
-    if(!gameStarted || gameOver) return;
+    //if(!gameStarted || gameOver) return;
+    if(gameStarted && !gameOver){
+        gameSpeed = 5.0f + score / 10.0f;
 
-    updateDino(dino);
-    updateCactus(cactus);
-
-    if(checkCollision(dino, cactus)){
-        gameOver = true;
+        updateDino(dino);
+        updateCactus(cactus);
+        if(checkCollision(dino,cactus)) gameOver = true;
     }
 }
 
@@ -69,4 +79,5 @@ void cleanupGame()
     SDL_DestroyWindow(window);
     SDL_Quit();
     TTF_Quit();
+    IMG_Quit();
 }

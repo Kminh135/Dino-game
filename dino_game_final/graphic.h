@@ -6,6 +6,7 @@
 #include <SDL_ttf.h>
 #include <string>
 #include "object.h"
+#include <vector>
 
 using namespace std;
 
@@ -16,6 +17,13 @@ void renderCactus();
 void renderText(const string& text, int x,int y);
 void clearGraphics();
 
+struct CactusInfo
+{
+    SDL_Texture* texture;
+    int y,w,h;
+};
+
+extern vector<CactusInfo> cactusVariants;
 
 #endif // GRAPHIC_H
 

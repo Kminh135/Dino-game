@@ -23,7 +23,6 @@ extern Cactus cactus;
 
 
 bool initGame();
-//void handleInput();
 void updateGame();
 void renderGame();
 void cleanupGame();
