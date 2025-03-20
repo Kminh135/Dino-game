@@ -2,12 +2,19 @@
 #define OBJECT_H
 
 #include <SDL.h>
+const int JUMP_FORCE = -17;
+
+enum DinoState
+{
+    DINO_IDLE, DINO_DUCK, DINO_GAMEOVER
+};
 
 struct Dino
 {
     int x,y,w,h;
     int velocityY;
     bool isJumping;
+    int state;
 };
 
 struct Cactus
@@ -15,7 +22,6 @@ struct Cactus
     int x,y,w,h;
     SDL_Texture* texture;
 };
-
 
 
 void updateDino(Dino& dino);

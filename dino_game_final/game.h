@@ -21,9 +21,11 @@ extern float gameSpeed;
 extern Dino dino;
 extern Cactus cactus;
 
+extern float bgX;
 
 bool initGame();
 void updateGame();
+void resetGame();
 void renderGame();
 void cleanupGame();
 

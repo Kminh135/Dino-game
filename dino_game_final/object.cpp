@@ -6,7 +6,7 @@
 using namespace std;
 
 const int GRAVITY = 1;
-const int JUMP_FORCE = -20;
+
 
 void updateDino(Dino& dino)
 {
@@ -33,8 +33,6 @@ void updateCactus(Cactus& cactus)
         cactus.y = cactusVariants[index].y;
         cactus.w = cactusVariants[index].w;
         cactus.h = cactusVariants[index].h;
-//        int groundY = 270;
-//        cactus.y = groundY - cactus.h;
     }
 }
 

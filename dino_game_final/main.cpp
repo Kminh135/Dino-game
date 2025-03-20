@@ -1,8 +1,11 @@
 #include "game.h"
 #include "input.h"
+#include <ctime>
 
 int main(int argc, char* argv[])
 {
+    //srand(time(NULL));
+
     if(!initGame()){
         return -1;
     }

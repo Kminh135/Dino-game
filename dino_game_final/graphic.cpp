@@ -6,23 +6,41 @@
 #include <SDL_ttf.h>
 #include <vector>
 
-SDL_Texture* dinoTexture = nullptr;
+
 //SDL_Texture* cactusTexture = nullptr;
 SDL_Texture* backgroundTexture = nullptr;
+
+SDL_Texture* dinoTextures[6] = {nullptr};
+
 TTF_Font* font = nullptr;
 SDL_Color white = {255, 255, 255, 255};
+SDL_Color black = {0, 0, 0, 255};
 
 vector<CactusInfo> cactusVariants;
 
 bool loadAssets()
 {
-    backgroundTexture = IMG_LoadTexture(renderer, "assets/background.jpg");
-    dinoTexture = IMG_LoadTexture(renderer, "assets/dino.jpg");
+    backgroundTexture = IMG_LoadTexture(renderer, "assets/background.png");
+    //dinoTexture = IMG_LoadTexture(renderer, "assets/dino.png");
     //cactusTexture = IMG_LoadTexture(renderer, "assets/cactus.png");
 
-    if(!backgroundTexture || !dinoTexture){
-        cout << "Failed to load background or dino texture: " << IMG_GetError() << endl;
+    if(!backgroundTexture){
+        cout << "Failed to load background texture: " << IMG_GetError() << endl;
         return false;
+    }
+
+    dinoTextures[0] = IMG_LoadTexture(renderer, "assets/dino1.png"); // đứng im hoặc nhảy
+    dinoTextures[1] = IMG_LoadTexture(renderer, "assets/dino2.png"); // bước chân trái
+    dinoTextures[2] = IMG_LoadTexture(renderer, "assets/dino3.png"); // bước chân phải
+    dinoTextures[3] = IMG_LoadTexture(renderer, "assets/dino4.png"); // cúi bước chân trái
+    dinoTextures[4] = IMG_LoadTexture(renderer, "assets/dino5.png"); // cúi bước chân phải
+    dinoTextures[5] = IMG_LoadTexture(renderer, "assets/dino6.png"); // gameover
+
+    for(int i = 0; i < 6; i++){
+        if(!dinoTextures[i]){
+            cout << "Failed to load dino texture " << i + 1 << ": " << IMG_GetError() <<endl;
+            return false;
+        }
     }
 
     font = TTF_OpenFont("assets/font.ttf", 24);
@@ -31,9 +49,9 @@ bool loadAssets()
         return false;
     }
 
-    SDL_Texture* cs1 = IMG_LoadTexture(renderer, "assets/cactus_short1.jpg");
-    SDL_Texture* cs2 = IMG_LoadTexture(renderer, "assets/cactus_short2.jpg");
-    SDL_Texture* cs3 = IMG_LoadTexture(renderer, "assets/cactus_short3.jpg");
+    SDL_Texture* cs1 = IMG_LoadTexture(renderer, "assets/cactus_short1.png");
+    SDL_Texture* cs2 = IMG_LoadTexture(renderer, "assets/cactus_short2.png");
+    SDL_Texture* cs3 = IMG_LoadTexture(renderer, "assets/cactus_short3.png");
     SDL_Texture* ct1 = IMG_LoadTexture(renderer, "assets/cactus_tall1.png");
     SDL_Texture* ct2 = IMG_LoadTexture(renderer, "assets/cactus_tall2.png");
     SDL_Texture* ct3 = IMG_LoadTexture(renderer, "assets/cactus_tall3.png");
@@ -56,14 +74,44 @@ bool loadAssets()
 
 void renderBackground()
 {
-    SDL_Rect bgRect = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
-    SDL_RenderCopy(renderer, backgroundTexture, NULL, &bgRect);
+    SDL_Rect bgRect1 = { (int)bgX, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+    SDL_Rect bgRect2 = { (int)bgX + SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+
+    //SDL_Rect bgRect = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+    SDL_RenderCopy(renderer, backgroundTexture, NULL, &bgRect1);
+    SDL_RenderCopy(renderer, backgroundTexture, NULL, &bgRect2);
 }
 
 void renderDino()
 {
+    SDL_Texture* currentTexture = nullptr;
+
+    if(gameOver){
+        currentTexture = dinoTextures[5];
+    }
+    else if(dino.isJumping){
+        currentTexture = dinoTextures[0];
+    }
+    else if(dino.state == DINO_DUCK){
+        if((SDL_GetTicks() / 200) % 2 == 0)
+            currentTexture = dinoTextures[3];
+        else
+            currentTexture = dinoTextures[4];
+    }
+    else{
+        if(gameStarted){
+            if((SDL_GetTicks() / 200) % 2 == 0)
+                currentTexture = dinoTextures[1];
+            else
+                currentTexture = dinoTextures[2];
+        }
+        else{
+            currentTexture = dinoTextures[0];
+        }
+    }
+
     SDL_Rect rect = {dino.x, dino.y, dino.w, dino.h};
-    SDL_RenderCopy(renderer, dinoTexture, NULL, &rect);
+    SDL_RenderCopy(renderer, currentTexture, NULL, &rect);
 }
 
 void renderCactus()
@@ -74,12 +122,11 @@ void renderCactus()
 
 void renderText(const string& text, int x, int y)
 {
-    SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), white);
+    SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), black);
     if(!surface){
         cout << "Failed to create text surface: " << TTF_GetError() << endl;
         return;
     }
-
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
     if(!texture){
         cout << "Failed to create text texture: " << SDL_GetError() << endl;
@@ -96,7 +143,10 @@ void renderText(const string& text, int x, int y)
 void clearGraphics()
 {
     SDL_DestroyTexture(backgroundTexture);
-    SDL_DestroyTexture(dinoTexture);
+    for(int i = 0; i < 6; i++){
+        SDL_DestroyTexture(dinoTextures[i]);
+    }
+    //SDL_DestroyTexture(dinoTexture);
     //SDL_DestroyTexture(cactusTexture);
     for (auto &ct : cactusVariants){
         SDL_DestroyTexture(ct.texture);
