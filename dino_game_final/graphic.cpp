@@ -32,8 +32,8 @@ bool loadAssets()
     dinoTextures[0] = IMG_LoadTexture(renderer, "assets/dino1.png"); // đứng im hoặc nhảy
     dinoTextures[1] = IMG_LoadTexture(renderer, "assets/dino2.png"); // bước chân trái
     dinoTextures[2] = IMG_LoadTexture(renderer, "assets/dino3.png"); // bước chân phải
-    dinoTextures[3] = IMG_LoadTexture(renderer, "assets/dino4.png"); // cúi bước chân trái
-    dinoTextures[4] = IMG_LoadTexture(renderer, "assets/dino5.png"); // cúi bước chân phải
+    dinoTextures[3] = IMG_LoadTexture(renderer, "assets/dino44.png"); // cúi bước chân trái
+    dinoTextures[4] = IMG_LoadTexture(renderer, "assets/dino55.png"); // cúi bước chân phải
     dinoTextures[5] = IMG_LoadTexture(renderer, "assets/dino6.png"); // gameover
 
     for(int i = 0; i < 6; i++){
@@ -61,13 +61,13 @@ bool loadAssets()
         return false;
     }
 
-    cactusVariants.push_back({ct1, 270, 25, 50});
-    cactusVariants.push_back({ct2, 270, 50, 50});
-    cactusVariants.push_back({ct3, 270, 75, 50});
+    cactusVariants.push_back({ct1, 250, 25, 50});
+    cactusVariants.push_back({ct2, 250, 50, 50});
+    cactusVariants.push_back({ct3, 250, 75, 50});
 
-    cactusVariants.push_back({cs1, 295, 25, 25});
-    cactusVariants.push_back({cs2, 295, 50, 25});
-    cactusVariants.push_back({cs3, 295, 75, 25});
+    cactusVariants.push_back({cs1, 275, 25, 25});
+    cactusVariants.push_back({cs2, 275, 50, 25});
+    cactusVariants.push_back({cs3, 275, 75, 25});
 
     return true;
 }
@@ -127,6 +127,7 @@ void renderText(const string& text, int x, int y)
         cout << "Failed to create text surface: " << TTF_GetError() << endl;
         return;
     }
+
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
     if(!texture){
         cout << "Failed to create text texture: " << SDL_GetError() << endl;
@@ -134,7 +135,7 @@ void renderText(const string& text, int x, int y)
         return;
     }
 
-    SDL_Rect dest = {x,y, surface -> w, surface -> h};
+    SDL_Rect dest = {x, y, surface -> w, surface -> h};
     SDL_RenderCopy(renderer, texture, NULL, &dest);
     SDL_FreeSurface(surface);
     SDL_DestroyTexture(texture);

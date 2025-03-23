@@ -12,10 +12,13 @@ const int SCREEN_HEIGHT = 400;
 
 extern SDL_Window* window;
 extern SDL_Renderer* renderer;
+
 extern bool running;
 extern bool gameStarted;
 extern bool gameOver;
+extern bool paused;
 extern int score;
+extern int level;
 extern float gameSpeed;
 
 extern Dino dino;

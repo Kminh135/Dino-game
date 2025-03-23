@@ -13,12 +13,14 @@ SDL_Renderer* renderer = nullptr;
 bool running = true;
 bool gameStarted = false;
 bool gameOver = false;
+bool paused = false;
 int score = 0;
+int level = 1;
 float gameSpeed = 0.5f;
 float bgX = 0.0f;
 
-Dino dino = {100, 270, 50, 50, 0, false, DINO_IDLE};
-Cactus cactus = {SCREEN_WIDTH, 270, 50, 50, nullptr};
+Dino dino = {100, 250, 50, 50, 0, false, DINO_IDLE};
+Cactus cactus = {SCREEN_WIDTH, 250, 50, 50, nullptr};
 
 bool initGame()
 {
@@ -47,8 +49,8 @@ bool initGame()
 
 void updateGame()
 {
-    if(gameStarted && !gameOver){
-        gameSpeed = 5.0f + score / 10.0f;
+    if(gameStarted && !gameOver && !paused){
+        //gameSpeed = 5.0f + score / 10.0f;
         bgX -= gameSpeed;
 
         if(bgX <= -SCREEN_WIDTH) bgX = 0.0f;
@@ -59,6 +61,14 @@ void updateGame()
             gameOver = true;
             dino.state = DINO_GAMEOVER;
         }
+
+        int newLevel = 1;
+        while (score >= 10 * newLevel *(newLevel + 1) / 2){
+            newLevel++;
+        }
+        level = newLevel;
+
+        gameSpeed = 5.0f + (level - 1) * 1.5f;
     }
 }
 
@@ -66,12 +76,14 @@ void resetGame()
 {
     gameOver = false;
     gameStarted = false;
+    paused = false;
     score = 0;
+    level = 1;
     gameSpeed = 5.0f;
     bgX = 0.0f;
 
     dino.x = 100;
-    dino.y = 270;
+    dino.y = 250;
     dino.w = 50;
     dino.h = 50;
     dino.velocityY = 0;
@@ -94,12 +106,15 @@ void renderGame()
     renderCactus();
 
     renderText("Score: " + to_string(score), 10, 10);
+    renderText("Level: " + to_string(level), 10, 40);
 
     if(!gameStarted){
         renderText("Press any key to start!", 250, 150);
     }else if(gameOver){
         renderText("Game over!", 300,100);
         renderText("Press any key to restart",250,150);
+    }else if(paused){
+        renderText("Paused", 350, 150);
     }
 
     SDL_RenderPresent(renderer);

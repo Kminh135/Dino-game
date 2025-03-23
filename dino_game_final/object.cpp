@@ -13,9 +13,9 @@ void updateDino(Dino& dino)
     if(dino.isJumping){
         dino.y += dino.velocityY;
         dino.velocityY += GRAVITY;
-        if(dino.y >= 270)
+        if(dino.y >= 250)
         {
-            dino.y = 270;
+            dino.y = 250;
             dino.isJumping = false;
         }
     }
