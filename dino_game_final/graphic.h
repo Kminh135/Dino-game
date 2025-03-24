@@ -13,7 +13,7 @@ using namespace std;
 bool loadAssets();
 void renderBackground();
 void renderDino();
-void renderCactus();
+void renderObstacle(const Obstacle &obs);
 void renderText(const string& text, int x,int y);
 void clearGraphics();
 
@@ -24,6 +24,9 @@ struct CactusInfo
 };
 
 extern vector<CactusInfo> cactusVariants;
+
+extern SDL_Texture* birdFrame1;
+extern SDL_Texture* birdFrame2;
 
 #endif // GRAPHIC_H
 

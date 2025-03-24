@@ -20,7 +20,7 @@ float gameSpeed = 0.5f;
 float bgX = 0.0f;
 
 Dino dino = {100, 250, 50, 50, 0, false, DINO_IDLE};
-Cactus cactus = {SCREEN_WIDTH, 250, 50, 50, nullptr};
+Obstacle obstacle = {0, 0, 0, 0, nullptr, nullptr, nullptr, OBSTACLE_CACTUS};
 
 bool initGame()
 {
@@ -38,11 +38,7 @@ bool initGame()
 
     if(!loadAssets()) return false;
 
-    int index = rand() % cactusVariants.size();
-    cactus.texture = cactusVariants[index].texture;
-    cactus.y = cactusVariants[index].y;
-    cactus.w = cactusVariants[index].w;
-    cactus.h = cactusVariants[index].h;
+    resetGame();
 
     return true;
 }
@@ -50,14 +46,13 @@ bool initGame()
 void updateGame()
 {
     if(gameStarted && !gameOver && !paused){
-        //gameSpeed = 5.0f + score / 10.0f;
         bgX -= gameSpeed;
 
         if(bgX <= -SCREEN_WIDTH) bgX = 0.0f;
 
         updateDino(dino);
-        updateCactus(cactus);
-        if(checkCollision(dino,cactus)){
+        updateObstacle(obstacle);
+        if(checkCollision(dino,obstacle)){
             gameOver = true;
             dino.state = DINO_GAMEOVER;
         }
@@ -90,12 +85,31 @@ void resetGame()
     dino.isJumping = false;
     dino.state = DINO_IDLE;
 
-    int index = rand() % cactusVariants.size();
-    cactus.texture = cactusVariants[index].texture;
-    cactus.y = cactusVariants[index].y;
-    cactus.w = cactusVariants[index].w;
-    cactus.h = cactusVariants[index].h;
-    cactus.x = SCREEN_WIDTH;
+    int r = rand() % 2;
+    if(r == 0){
+        obstacle.type = OBSTACLE_CACTUS;
+        int index = rand() % cactusVariants.size();
+        obstacle.textureCactus = cactusVariants[index].texture;
+        obstacle.textureBird1 = nullptr;
+        obstacle.textureBird2 = nullptr;
+        obstacle.y = cactusVariants[index].y;
+        obstacle.w = cactusVariants[index].w;
+        obstacle.h = cactusVariants[index].h;
+        obstacle.x = SCREEN_WIDTH;
+    }
+    else{
+        obstacle.type = OBSTACLE_BIRD;
+        obstacle.textureCactus = nullptr;
+        obstacle.textureBird1 = birdFrame1;
+        obstacle.textureBird2 = birdFrame2;
+        obstacle.w = 40;
+        obstacle.h = 30;
+        obstacle.x = SCREEN_WIDTH;
+
+        int rr = rand() % 3;
+        int base = 250 - rr * 30;
+        obstacle.y = base;
+    }
 }
 
 void renderGame()
@@ -103,7 +117,7 @@ void renderGame()
     SDL_RenderClear(renderer);
     renderBackground();
     renderDino();
-    renderCactus();
+    renderObstacle(obstacle);
 
     renderText("Score: " + to_string(score), 10, 10);
     renderText("Level: " + to_string(level), 10, 40);

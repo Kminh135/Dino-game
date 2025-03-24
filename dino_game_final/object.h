@@ -17,15 +17,23 @@ struct Dino
     int state;
 };
 
-struct Cactus
+enum ObstacleType
 {
-    int x,y,w,h;
-    SDL_Texture* texture;
+    OBSTACLE_CACTUS, OBSTACLE_BIRD
+};
+
+struct Obstacle
+{
+    int x, y, w, h;
+    SDL_Texture* textureCactus;
+    SDL_Texture* textureBird1;
+    SDL_Texture* textureBird2;
+    ObstacleType type;
 };
 
 
 void updateDino(Dino& dino);
-void updateCactus(Cactus& cactus);
-bool checkCollision(const Dino& dino, const Cactus& cactus);
+void updateObstacle(Obstacle& obstacle);
+bool checkCollision(const Dino& dino, const Obstacle& obs);
 
 #endif // OBJECT_H

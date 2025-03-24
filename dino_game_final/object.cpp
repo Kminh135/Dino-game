@@ -21,23 +21,41 @@ void updateDino(Dino& dino)
     }
 }
 
-void updateCactus(Cactus& cactus)
+void updateObstacle(Obstacle& obstacle)
 {
-    cactus.x -= gameSpeed;
-    if(cactus.x < -cactus.w){
-        cactus.x = SCREEN_WIDTH;
+    obstacle.x -= gameSpeed;
+    if(obstacle.x < -obstacle.w){
         score++;
 
-        int index = rand() % cactusVariants.size();
-        cactus.texture = cactusVariants[index].texture;
-        cactus.y = cactusVariants[index].y;
-        cactus.w = cactusVariants[index].w;
-        cactus.h = cactusVariants[index].h;
+        int r = rand() % 2;
+        if(r == 0){
+            obstacle.type = OBSTACLE_CACTUS;
+            int index = rand() % cactusVariants.size();
+            obstacle.textureCactus = cactusVariants[index].texture;
+            obstacle.textureBird1 = nullptr;
+            obstacle.textureBird2 = nullptr;
+            obstacle.w = cactusVariants[index].w;
+            obstacle.h = cactusVariants[index].h;
+            obstacle.x = SCREEN_WIDTH;
+            obstacle.y = cactusVariants[index].y;
+        }
+        else{
+            if(gameOver) return;
+            obstacle.type = OBSTACLE_BIRD;
+            obstacle.textureCactus = nullptr;
+            obstacle.textureBird1 = birdFrame1;
+            obstacle.textureBird2 = birdFrame2;
+            obstacle.w = 40;
+            obstacle.h = 30;
+            obstacle.x = SCREEN_WIDTH;
+            int rr = rand() % 3;
+            obstacle.y = 250 - rr*30;
+        }
     }
 }
 
-bool checkCollision(const Dino& dino, const Cactus& cactus)
+bool checkCollision(const Dino& dino, const Obstacle& obs)
 {
-    return (dino.x < cactus.x + cactus.w && dino.x + dino.w > cactus.x &&
-            dino.y < cactus.y + cactus.h && dino.y + dino.h > cactus.y);
+    return (dino.x < obs.x + obs.w && dino.x + dino.w > obs.x &&
+            dino.y < obs.y + obs.h && dino.y + dino.h > obs.y);
 }

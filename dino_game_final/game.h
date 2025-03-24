@@ -22,7 +22,8 @@ extern int level;
 extern float gameSpeed;
 
 extern Dino dino;
-extern Cactus cactus;
+
+extern Obstacle obstacle;
 
 extern float bgX;
 
