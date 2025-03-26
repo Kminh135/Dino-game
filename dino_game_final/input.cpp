@@ -1,8 +1,34 @@
 #include "input.h"
 #include "game.h"
 #include "object.h"
+#include "graphic.h"
 #include <SDL.h>
 
+void confirmQuit()
+{
+    SDL_Event e;
+
+    //SDL_RenderClear(renderer);
+    renderText("Do you want to quit? ", 290, 180);
+    renderText("y: Yes     n: No", 315, 210);
+    SDL_RenderPresent(renderer);
+
+    bool waiting = true;
+    while(waiting){
+        while(SDL_PollEvent(&e)){
+            if(e.type == SDL_KEYDOWN){
+                if(e.key.keysym.sym == SDLK_y){
+                    running = false;
+                    waiting = false;
+                }
+                else if(e.key.keysym.sym == SDLK_n){
+                    waiting = false;
+                }
+            }
+        }
+        SDL_Delay(16);
+    }
+}
 
 void handleInput()
 {
@@ -10,6 +36,9 @@ void handleInput()
     while(SDL_PollEvent(&e)){
         if(e.type == SDL_QUIT) running = false;
         if(e.type == SDL_KEYDOWN){
+            if(e.key.keysym.sym == SDLK_ESCAPE){
+                confirmQuit();
+            }
             if(!gameStarted){
                 gameStarted = true;
             }

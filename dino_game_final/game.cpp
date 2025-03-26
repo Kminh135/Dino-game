@@ -15,6 +15,7 @@ bool gameStarted = false;
 bool gameOver = false;
 bool paused = false;
 int score = 0;
+int highScore = 0;
 int level = 1;
 float gameSpeed = 0.5f;
 float bgX = 0.0f;
@@ -55,6 +56,7 @@ void updateGame()
         if(checkCollision(dino,obstacle)){
             gameOver = true;
             dino.state = DINO_GAMEOVER;
+            if(score > highScore) highScore = score;
         }
 
         int newLevel = 1;
@@ -107,7 +109,7 @@ void resetGame()
         obstacle.x = SCREEN_WIDTH;
 
         int rr = rand() % 3;
-        int base = 250 - rr * 30;
+        int base = 250 - rr * 25;
         obstacle.y = base;
     }
 }
@@ -119,8 +121,9 @@ void renderGame()
     renderDino();
     renderObstacle(obstacle);
 
-    renderText("Score: " + to_string(score), 10, 10);
-    renderText("Level: " + to_string(level), 10, 40);
+    renderText("Score: " + to_string(score), 600, 40);
+    renderText("Level: " + to_string(level), 10, 10);
+    renderText("High Score: " + to_string(highScore), 600, 10);
 
     if(!gameStarted){
         renderText("Press any key to start!", 250, 150);

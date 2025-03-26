@@ -10,6 +10,10 @@ const int GRAVITY = 1;
 
 void updateDino(Dino& dino)
 {
+    if(dino.isJumping && dino.state == DINO_DUCK){
+        dino.isJumping = false;
+        dino.y = 275;
+    }
     if(dino.isJumping){
         dino.y += dino.velocityY;
         dino.velocityY += GRAVITY;
@@ -49,7 +53,7 @@ void updateObstacle(Obstacle& obstacle)
             obstacle.h = 30;
             obstacle.x = SCREEN_WIDTH;
             int rr = rand() % 3;
-            obstacle.y = 250 - rr*30;
+            obstacle.y = 250 - rr*25;
         }
     }
 }
