@@ -60,6 +60,6 @@ void updateObstacle(Obstacle& obstacle)
 
 bool checkCollision(const Dino& dino, const Obstacle& obs)
 {
-    return (dino.x < obs.x + obs.w && dino.x + dino.w > obs.x &&
-            dino.y < obs.y + obs.h && dino.y + dino.h > obs.y);
+    return (dino.x < obs.x + obs.w*0.8 && dino.x + dino.w*0.8 > obs.x &&
+            dino.y < obs.y + obs.h*0.8 && dino.y + dino.h*0.8 > obs.y);
 }

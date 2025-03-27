@@ -9,7 +9,6 @@ void confirmQuit()
 {
     SDL_Event e;
 
-    //SDL_RenderClear(renderer);
     renderText("Do you want to quit? ", 290, 180);
     renderText("y: Yes     n: No", 315, 210);
     SDL_RenderPresent(renderer);

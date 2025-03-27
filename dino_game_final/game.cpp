@@ -73,7 +73,6 @@ bool initGame()
 void updateGame()
 {
     if(gameStarted && !gameOver && !paused){
-        playBackgroundMusic();
         bgX -= gameSpeed;
 
         if(bgX <= -SCREEN_WIDTH) bgX = 0.0f;
@@ -85,8 +84,6 @@ void updateGame()
             dino.state = DINO_GAMEOVER;
             playGameOverSound();
             saveHighScore();
-            stopBackgroundMusic();
-            //if(score > highScore) highScore = score;
         }
         if(score > highScore){
             highScore = score;

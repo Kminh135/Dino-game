@@ -86,6 +86,7 @@ void renderBackground()
 void renderDino()
 {
     SDL_Texture* currentTexture = nullptr;
+    SDL_Rect rect={0,0,0,0};
 
     if(gameOver){
         currentTexture = dinoTextures[5];
@@ -98,6 +99,8 @@ void renderDino()
             currentTexture = dinoTextures[3];
         else
             currentTexture = dinoTextures[4];
+        //dino.w=70;dino.h=1.2*25;
+
     }
     else{
         if(gameStarted){
@@ -110,8 +113,7 @@ void renderDino()
             currentTexture = dinoTextures[0];
         }
     }
-
-    SDL_Rect rect = {dino.x, dino.y, dino.w, dino.h};
+    rect = {dino.x, dino.y, dino.w, dino.h};
     SDL_RenderCopy(renderer, currentTexture, NULL, &rect);
 }
 
