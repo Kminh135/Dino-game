@@ -37,10 +37,13 @@
 			<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -ISDL2_mixer" />
 			<Add directory="../../SDL2/SDL2_mixer-2.8.1/x86_64-w64-mingw32/lib" />
 		</Linker>
+		<Unit filename="audio.cpp" />
+		<Unit filename="audio.h" />
 		<Unit filename="game.cpp" />
 		<Unit filename="game.h" />
 		<Unit filename="graphic.cpp" />
 		<Unit filename="graphic.h" />
+		<Unit filename="high_score.txt" />
 		<Unit filename="input.cpp" />
 		<Unit filename="input.h" />
 		<Unit filename="main.cpp" />

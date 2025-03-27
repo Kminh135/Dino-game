@@ -2,6 +2,7 @@
 #include "game.h"
 #include "object.h"
 #include "graphic.h"
+#include "audio.h"
 #include <SDL.h>
 
 void confirmQuit()
@@ -50,6 +51,7 @@ void handleInput()
                 dino.isJumping = true;
                 dino.velocityY = JUMP_FORCE;
                 dino.state = DINO_IDLE;
+                playJumpSound();
             }
             if(e.key.keysym.sym == SDLK_DOWN && !gameOver && !paused){
                 dino.state = DINO_DUCK;

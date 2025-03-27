@@ -43,21 +43,23 @@
 	"object.h"
 	<iostream>
 
-1742912262 source:d:\code\c++cb\dino_game_final\game.cpp
+1743044612 source:d:\code\c++cb\dino_game_final\game.cpp
 	"game.h"
 	"graphic.h"
 	"input.h"
 	"object.h"
+	"audio.h"
 	<iostream>
 	<cstdlib>
 	<ctime>
 
-1742788160 d:\code\c++cb\dino_game_final\game.h
+1743042030 d:\code\c++cb\dino_game_final\game.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
 	"object.h"
 	<string>
+	<fstream>
 
 1742831467 d:\code\c++cb\dino_game_final\object.h
 	<SDL.h>
@@ -81,17 +83,17 @@
 	<SDL_ttf.h>
 	<vector>
 
-1742913324 source:d:\code\c++cb\dino_game_final\input.cpp
+1743044577 source:d:\code\c++cb\dino_game_final\input.cpp
 	"input.h"
 	"game.h"
 	"object.h"
 	"graphic.h"
+	"audio.h"
 	<SDL.h>
 
-1742747726 source:d:\code\c++cb\dino_game_final\main.cpp
+1743036872 source:d:\code\c++cb\dino_game_final\main.cpp
 	"game.h"
 	"input.h"
-	<ctime>
 
 1742911519 source:d:\code\c++cb\dino_game_final\object.cpp
 	"object.h"
@@ -99,9 +101,11 @@
 	"graphic.h"
 	<cstdlib>
 
-1742784995 source:d:\code\c++cb\dino_game_final\audio.cpp
+1743045795 source:d:\code\c++cb\dino_game_final\audio.cpp
+	"audio.h"
+	<iostream>
 
-1742747726 d:\code\c++cb\dino_game_final\audio.h
+1743044577 d:\code\c++cb\dino_game_final\audio.h
 	<SDL_mixer.h>
 
 1738962281 d:\code\sdl2\sdl2_mixer-2.8.1\x86_64-w64-mingw32\include\sdl2\sdl_mixer.h
