@@ -158,12 +158,16 @@ void renderGame()
     if(!gameStarted){
         renderText("Press any key to start!", 250, 150);
         renderText("How to play", 325, 300);
-        renderText("Press up-arrow or space to jump and press down-arrow to duck", 40, 330);
+        renderText("Press up-arrow or space to jump and hold down-arrow to duck", 50, 330);
     }else if(gameOver){
         renderText("Game over!", 300,100);
         renderText("Press any key to restart",250,150);
     }else if(paused){
         renderText("Paused", 350, 150);
+        renderText("Press P to resume", 20, 350);
+    }else{
+        renderText("Press P to pause", 20, 350);
+        renderText("Press Esc to quit", 600, 350);
     }
 
     SDL_RenderPresent(renderer);
